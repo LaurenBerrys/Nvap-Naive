@@ -11,10 +11,7 @@ const Layout = () => import('@/layout/index.vue');
 /*
  * 路由操作
  * */
-// import router, { asyncRoutes, constantRoutes, roleCodeRoutes } from '@/router';
-//嵌入微前端
-import { asyncRoutes, constantRoutes, roleCodeRoutes } from '@/router';
-import { NvapRouter as router } from '@/main';
+import router, { asyncRoutes, constantRoutes, roleCodeRoutes } from '@/router';
 
 const buttonCodes: Array<number> = []; //按钮权限
 interface menuRow {
@@ -23,7 +20,7 @@ interface menuRow {
   children: RouterTypes;
 }
 export const filterAsyncRoutesByMenuList = (menuList) => {
-  const filterRouter: RouterTypes = [];
+    const filterRouter: RouterTypes = [];
   menuList.forEach((route: menuRow) => {
     //button permission
     if (route.category === 3) {
@@ -135,8 +132,6 @@ function hasCodePermission(codes, routeItem) {
 }
 //过滤异步路由
 export function filterAsyncRouter({ menuList = [], roles, codes }) {
-  console.log(router, 'router');
-
   const appStore = useAppStore();
   let accessRoutes: RouterTypes = [];
   const permissionMode = appStore.settings?.permissionMode;
@@ -148,6 +143,8 @@ export function filterAsyncRouter({ menuList = [], roles, codes }) {
     accessRoutes = filterAsyncRouterByCodes(roleCodeRoutes, codes); //by codes
   }
   accessRoutes.forEach((route) => {
+    console.log(route,1111);
+    
     router.addRoute(route);
   });
   asyncRoutes.forEach((item) => router.addRoute(item));

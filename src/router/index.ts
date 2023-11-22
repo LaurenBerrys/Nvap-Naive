@@ -1,13 +1,13 @@
 /*
  * @Author: Nie Chengyong
  * @Date: 2023-02-15 14:54:00
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-11-16 10:31:23
+ * @LastEditors: Nie Chengyong
+ * @LastEditTime: 2023-03-08 15:30:24
  * @FilePath: /nestjs-ts-vue3-vite/vue3/src/router/index.ts
  * @Description:
  *
  */
-import { createRouter, createWebHistory,createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import type { RouterTypes } from '~/basic';
 const layout = () => import('@/layout/index.vue');
 
@@ -112,16 +112,10 @@ export const asyncRoutes: RouterTypes = [
   { path: '/:catchAll(.*)', name: 'CatchAll', redirect: '/404', hidden: true },
 ];
 
-const router =(props:any) =>{
- return  createRouter({
-    // history: createWebHashHistory(),
-    // createWebHistory
-    history: createWebHistory(props?.basename || ''),
-    scrollBehavior: () => ({ top: 0 }),
-    routes: constantRoutes,
-  });
-}
-
-
+const router = createRouter({
+  history: createWebHashHistory(),
+  scrollBehavior: () => ({ top: 0 }),
+  routes: constantRoutes,
+});
 
 export default router;

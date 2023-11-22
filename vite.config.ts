@@ -2,7 +2,7 @@
  * @Author: Nie Chengyong
  * @Date: 2023-02-13 19:56:31
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-11-17 17:47:17
+ * @LastEditTime: 2023-10-16 16:53:51
  * @FilePath: /nestjs-ts-vue3-vite/vue3/vite.config.ts
  * @Description:
  *
@@ -18,7 +18,7 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'; //setup 支持name属性
 import vueJsx from '@vitejs/plugin-vue-jsx';
 
-import VueMacros from 'unplugin-vue-macros/dist/vite'; //npm i -D unplugin-vue-macros //宏指令 https://vue-macros.sxzz.moe/guide/configurations.html
+import VueMacros from 'unplugin-vue-macros/dist/vite';//npm i -D unplugin-vue-macros //宏指令 https://vue-macros.sxzz.moe/guide/configurations.html
 import { transformShortVmodel } from '@vue-macros/short-vmodel'; //配置简写v-model
 //打包分析插件
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -36,20 +36,18 @@ import compressionPlugin from 'vite-plugin-compression';
 import unocss from 'unocss/vite';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
-import IconsResolver from 'unplugin-icons/resolver'; //图标路径解析,提供了在 Vite 项目中自动导入和使用图标的功能
+import IconsResolver from 'unplugin-icons/resolver';//图标路径解析,提供了在 Vite 项目中自动导入和使用图标的功能
 import Icons from 'unplugin-icons/vite';
-import qiankunPlugin from 'vite-plugin-qiankun';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { name } from './package.json';
-const useDevMode = true; // 是否使用开发模式
+
 const customIconPath = fileURLToPath(new URL('./src/assets/svg', import.meta.url));
 export default ({ mode }: ConfigEnv): UserConfig => {
+  console.log('mode', mode);
   const IS_PROD = ['prod', 'production'].includes(mode);
   process.env = {
     ...process.env,
     ...loadEnv(mode, process.cwd()),
   };
-
+  
   const base = './';
   const resolve = {
     alias: {
@@ -60,14 +58,12 @@ export default ({ mode }: ConfigEnv): UserConfig => {
   const server = {
     host: true,
     //配置跨域
-    port: 9999,
+    port: 3001,
     open: true,
-    origin: `http://localhost:${9999}`,
     proxy: {
       '/nest-api': {
         changeOrigin: true,
         target: 'http://120.77.83.106:3000/',
-        // target: 'http://localhost:3000/',
       },
     },
     cors: true,
@@ -99,8 +95,6 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         }),
       },
     }),
-    qiankunPlugin(name, { useDevMode }),
-    tsconfigPaths(),
     // vue(),
     compressionPlugin({
       algorithm: 'gzip',
@@ -163,7 +157,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       customCollections: {
         custom: FileSystemIconLoader(customIconPath),
       },
-      autoInstall: true,
+      autoInstall:true,
       scale: 1,
       defaultClass: 'inline-block',
     }),

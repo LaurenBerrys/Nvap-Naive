@@ -2,17 +2,16 @@
  * @Author: Nie Chengyong
  * @Date: 2023-02-15 15:23:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-30 17:28:22
+ * @LastEditTime: 2023-05-16 17:51:06
  * @FilePath: /nestjs-ts-vue3-vite/vue3/src/permission.ts
  * @Description:
  *
  */
+import router from '@/router';
 import { userInfoReq } from '@/api/user';
 import { langTitle } from '@/hooks/use-common';
-export const routerInit=(router)=>{
-  console.log(router,'router');
 
-  //路由进入前拦截
+//路由进入前拦截
 //to:将要进入的页面 vue-router4.0 不推荐使用next()
 const whiteList = ['/login', '/404', '/401']; // no redirect whitelist
 router.beforeEach(async (to) => {
@@ -28,6 +27,7 @@ router.beforeEach(async (to) => {
         try {
           const userData = await userInfoReq();
           console.log(userData,1111);
+          
           // userData.menuList
           //3.动态路由权限筛选
           filterAsyncRouter(userData);
@@ -43,7 +43,6 @@ router.beforeEach(async (to) => {
       } else {
         if (router.getRoutes().length === 5) {
           const asyncRouter = filterAsyncRoutesByMenuList(appStore.userInfo.menuList);
-          
           asyncRouter.forEach((route) => {
             router.addRoute(route);
           });
@@ -74,6 +73,3 @@ router.afterEach(() => {});
 //   // * 路由指定的角色包含任一登录用户角色则判定有权限
 //   return role.some((item) => routeRole.includes(item));
 // }
-
-}
- 

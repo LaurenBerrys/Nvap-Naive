@@ -1,5 +1,5 @@
 {
-  "name": "NvapNaive",
+  "name": "nest-vue3",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -42,9 +42,7 @@
     "unplugin-auto-import": "^0.14.2",
     "unplugin-icons": "^0.15.3",
     "unplugin-vue-components": "^0.23.0",
-    "vite-plugin-qiankun": "^1.0.15",
     "vite-plugin-svg-icons": "^2.0.1",
-    "vite-tsconfig-paths": "^4.2.1",
     "vue": "^3.2.45",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6",
